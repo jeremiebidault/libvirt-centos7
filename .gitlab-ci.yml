@@ -1,0 +1,16 @@
+stages:
+  - prepare
+
+.trigger-rules:
+  rules:
+    - if: '$CI_PIPELINE_TRIGGERED'
+    - when: manual
+
+prepare:
+  extends: .trigger-rules
+  stage: prepare
+  tags:
+    - kvm,ssh
+  script:
+    - chmod +x prepare.sh
+    - ./prepare.sh > prepare.log
